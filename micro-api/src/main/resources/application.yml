@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: micro-api
+server:
+  port: 9090

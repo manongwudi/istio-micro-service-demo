@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: micro-order
+server:
+  port: 9091
