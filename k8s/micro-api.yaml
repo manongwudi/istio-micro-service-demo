@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: micro-api
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 19090
+      targetPort: 9090
+  selector:
+    app: micro-api
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: micro-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: micro-api
+  template:
+    metadata:
+      labels:
+        app: micro-api
+    spec:
+      containers:
+        - name: micro-api
+          image: 10.211.55.2:8080/micro-service/micro-api:1.0-SNAPSHOT
+          imagePullPolicy: Always
+          tty: true
+          ports:
+            - name: http
+              protocol: TCP
+              containerPort: 19090

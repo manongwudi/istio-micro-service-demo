@@ -14,6 +14,11 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
+    <properties>
+        <!--定义Docker镜像仓库地址-->
+        <docker.repository>10.211.55.2:8080</docker.repository>
+    </properties>
+
     <dependencies>
         <!--引入Spring Boot核心Starter依赖-->
         <dependency>
@@ -44,6 +49,39 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <!--添加将Java应用打包为Docker Image的Maven插件-->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>1.4.13</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>javax.activation</groupId>
+                        <artifactId>activation</artifactId>
+                        <version>1.1</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>build-image</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                            <goal>push</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!--指定Dockerfile文件位置-->
+                    <dockerfile>docker/Dockerfile</dockerfile>
+                    <repository>${docker.repository}/micro-service/${project.artifactId}</repository>
+                    <tag>${project.version}</tag>
+                    <buildArgs>
+                        <!--提供参数向Dockerfile传递-->
+                        <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+                    </buildArgs>
+                </configuration>
             </plugin>
         </plugins>
     </build>

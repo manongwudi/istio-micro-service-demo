@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: micro-order
+  labels:
+    app: micro-order
+    service: micro-order
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 80
+      targetPort: 9091
+  selector:
+    app: micro-order
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: micro-order-v1
+  labels:
+    app: micro-order
+    version: v1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: micro-order
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: micro-order
+        version: v1
+    spec:
+      containers:
+        - name: micro-order
+          image: 10.211.55.2:8080/micro-service/micro-order:1.0-SNAPSHOT
+          imagePullPolicy: Always
+          tty: true
+          ports:
+            - name: http
+              protocol: TCP
+              containerPort: 19091

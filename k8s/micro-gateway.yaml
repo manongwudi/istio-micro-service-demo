@@ -1,0 +1,33 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: micro-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: micro-gateway
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - micro-gateway
+  http:
+    - match:
+        - uri:
+            exact: /api/order/create
+      route:
+        - destination:
+            host: micro-api
+            port:
+              number: 19090
