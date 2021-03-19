@@ -19,4 +19,8 @@
 
 2）、而micro-api与micro-order则基于微服务的注册发现机制进行内部微服务调用访问，采用Http协议；
 
-3）、micro-order与micro-pay之间也基于微服务注册发现机制进行内部微服务调用访问，为了演示多种场景，这里两个微服务的调用采用GRpc协议;              
+3）、micro-order与micro-pay之间也基于微服务注册发现机制进行内部微服务调用访问，为了演示多种场景，这里两个微服务的调用采用GRpc协议;  
+
+
+更详细的文章说明链接：
+https://mp.weixin.qq.com/s/L1LoiI9NZqwZWsuCzEJN1A            
