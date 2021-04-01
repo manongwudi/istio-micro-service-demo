@@ -43,3 +43,11 @@ spec:
             - name: http
               protocol: TCP
               containerPort: 19091
+          #环境参数设置(设置微服务返回gRPC服务端的地址+端口)
+          env:
+            - name: GRPC_SERVER_HOST
+              value: micro-pay
+            - name: GRPC_SERVER_PORT
+              value: 18888
+
+

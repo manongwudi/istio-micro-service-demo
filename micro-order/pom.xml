@@ -41,6 +41,13 @@
             <artifactId>micro-order-client</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
+        <!--引入支付服务gRPC ProtoBuf定义依赖-->
+        <dependency>
+            <groupId>com.wudimanong</groupId>
+            <artifactId>micro-pay-client</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package com.wudimanong.pay.client;
+
+option java_multiple_files = true;
+option java_package = "com.wudimanong.micro.pay.proto";
+
+service PayService {
+    //定义支付rpc方法
+    rpc doPay (PayRequest) returns (PayResponse);
+}
+
+message PayRequest {
+    string orderId = 1;
+    int32 amount=2;
+}
+
+message PayResponse {
+    int32 status = 1;
+}

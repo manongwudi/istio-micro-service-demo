@@ -1,0 +1,3 @@
+#支付微服务Grpc服务地址、端口配置
+server-host: 127.0.0.1
+server-port: 18888

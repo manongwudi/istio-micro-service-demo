@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: micro-order
+server:
+  port: 9092
+
+#定义gRPC服务开放的端口
+grpc:
+  server-port: 18888

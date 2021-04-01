@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: micro-pay
+  labels:
+    app: micro-pay
+    service: micro-pay
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 80
+      targetPort: 9092
+  selector:
+    app: micro-pay
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: micro-pay-v1
+  labels:
+    app: micro-pay
+    version: v1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: micro-pay
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: micro-pay
+        version: v1
+    spec:
+      containers:
+        - name: micro-pay
+          image: 10.211.55.2:8080/micro-service/micro-pay:1.0-SNAPSHOT
+          imagePullPolicy: Always
+          tty: true
+          ports:
+            - name: http
+              protocol: TCP
+              containerPort: 19092
+            #指定服务gRPC端口
+            - name: grpc
+                protocol: TCP
+                containerPort: 18888
+
+

@@ -3,3 +3,7 @@ spring:
     name: micro-order
 server:
   port: 9091
+
+#支付微服务Grpc服务地址、端口配置
+server-host: ${server-host}
+server-port: ${server-port}
