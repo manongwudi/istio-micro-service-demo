@@ -5,5 +5,5 @@ server:
   port: 9091
 
 #支付微服务Grpc服务地址、端口配置
-server-host: ${server-host}
-server-port: ${server-port}
+server-host: ${grpc_server_host}
+server-port: ${grpc_server_port}

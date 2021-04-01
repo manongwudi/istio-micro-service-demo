@@ -9,6 +9,7 @@ spec:
   type: ClusterIP
   ports:
     - name: http
+      #此处设置80端口的原因在于改造的Mock FeignClient代码默认是基于80端口进行服务调用
       port: 80
       targetPort: 9091
   selector:
@@ -48,6 +49,6 @@ spec:
             - name: GRPC_SERVER_HOST
               value: micro-pay
             - name: GRPC_SERVER_PORT
-              value: 18888
+              value: "18888"
 
 

@@ -9,8 +9,14 @@ spec:
   type: ClusterIP
   ports:
     - name: http
-      port: 80
+      #容器暴露端口
+      port: 19092
+      #目标应用端口
       targetPort: 9092
+    #设置gRPC端口
+    - name: grpc
+      port: 18888
+      targetPort: 18888
   selector:
     app: micro-pay
 
@@ -45,7 +51,5 @@ spec:
               containerPort: 19092
             #指定服务gRPC端口
             - name: grpc
-                protocol: TCP
-                containerPort: 18888
-
-
+              protocol: TCP
+              containerPort: 18888
