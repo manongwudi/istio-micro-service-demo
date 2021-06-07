@@ -1,0 +1,39 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: c
+spec:
+  host: micro-api
+  trafficPolicy:
+    #限流策略
+    connectionPool:
+      tcp:
+        maxConnections: 1
+      http:
+        http1MaxPendingRequests: 1
+        maxRequestsPerConnection: 1
+---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: micro-pay
+spec:
+  host: micro-pay
+  trafficPolicy:
+    #限流策略
+    connectionPool:
+      tcp:
+        maxConnections: 1
+      http:
+        #http2MaxRequests: 1
+        http1MaxPendingRequests: 1
+        maxRequestsPerConnection: 1
+    #熔断策略
+    outlierDetection:
+      consecutive5xxErrors: 1
+      interval: 30s
+      baseEjectionTime: 3m
+      maxEjectionPercent: 100
+---

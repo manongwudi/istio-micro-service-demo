@@ -29,7 +29,7 @@ metadata:
     app: micro-pay
     version: v1
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: micro-pay

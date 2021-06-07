@@ -1,0 +1,27 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: micro-order
+spec:
+  hosts:
+    - micro-ordeer
+  http:
+    - fault:
+        delay:
+          fixedDelay: 20s
+          percentage:
+            value: 100.0
+        abort:
+          httpStatus: 500
+          percentage:
+            value: 100.0
+      route:
+        - destination:
+            host: micro-order
+            subset: v1
+    - route:
+      - destination:
+          host: micro-order
+          subset: v1
+---
