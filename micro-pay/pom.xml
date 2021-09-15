@@ -14,11 +14,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <properties>
-        <!--定义Docker镜像仓库地址-->
-        <docker.repository>10.211.55.2:8080</docker.repository>
-    </properties>
-
     <dependencies>
         <!--引入Spring Boot核心Starter依赖-->
         <dependency>
@@ -81,7 +76,7 @@
                 <configuration>
                     <!--指定Dockerfile文件位置-->
                     <dockerfile>docker/Dockerfile</dockerfile>
-                    <repository>${docker.repository}/micro-service/${project.artifactId}</repository>
+                    <repository>${docker.repository}/wudimanong/${project.artifactId}</repository>
                     <tag>${project.version}</tag>
                     <buildArgs>
                         <!--提供参数向Dockerfile传递-->

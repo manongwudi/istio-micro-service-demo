@@ -35,9 +35,12 @@ spec:
         app: micro-order
         version: v1
     spec:
+      #设置的阿里云私有镜像仓库登陆信息的secret(对应2.1.2的设置)
+      imagePullSecrets:
+        - name: regcred
       containers:
         - name: micro-order
-          image: 10.211.55.2:8080/micro-service/micro-order:1.0-SNAPSHOT
+          image: registry.cn-hangzhou.aliyuncs.com/wudimanong/micro-order:1.0-SNAPSHOT
           imagePullPolicy: Always
           tty: true
           ports:

@@ -23,6 +23,11 @@
         <module>feign-istio-fake</module>
     </modules>
 
+    <properties>
+        <!--定义Docker镜像仓库地址(阿里云)-->
+        <docker.repository>registry.cn-hangzhou.aliyuncs.com</docker.repository>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <!--引入fastJson依赖-->
