@@ -17,10 +17,20 @@ kind: Deployment
 metadata:
   name: micro-api
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: micro-api
+  replicas: 3
+  #设置滚动升级策略
+  #Kubernetes在等待设置的时间后才开始进行升级，例如5秒
+  minReadySeconds: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      #升级过程中最多可以比原先设置多出的Pod数量
+      maxSurge: 1
+      #升级过程中Deployment控制器最多可以删除多少个旧Pod，主要用于提供缓冲时间
+      maxUnavailable: 1
   template:
     metadata:
       labels:
