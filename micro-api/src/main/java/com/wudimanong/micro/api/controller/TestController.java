@@ -16,6 +16,6 @@ public class TestController {
     @GetMapping("/test")
     public String test() {
         log.info("测试接口被调用！");
-        return "无依赖测试接口返回->OK!";
+        return "V3|无依赖测试接口返回->OK!";
     }
 }

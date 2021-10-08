@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: micro-api
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 19090
+      targetPort: 9090
+  selector:
+    app: micro-api
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: micro-api-v1
+spec:
+  selector:
+    matchLabels:
+      app: micro-api
+      #这里是关键，需要设置版本标签，以便实现灰度发布
+      version: v1
+  replicas: 3
+  #设置滚动升级策略
+  #Kubernetes在等待设置的时间后才开始进行升级，例如5秒
+  minReadySeconds: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      #升级过程中最多可以比原先设置多出的Pod数量
+      maxSurge: 1
+      #升级过程中Deployment控制器最多可以删除多少个旧Pod，主要用于提供缓冲时间
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: micro-api
+        #设置版本标签，便于灰度发布
+        version: v1
+    spec:
+      #设置的阿里云私有镜像仓库登陆信息的secret
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: micro-api
+          image: registry.cn-hangzhou.aliyuncs.com/wudimanong/micro-api:1.1-SNAPSHOT
+          imagePullPolicy: Always
+          tty: true
+          ports:
+            - name: http
+              protocol: TCP
+              containerPort: 19090

@@ -2,17 +2,30 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
-  name: c
+  name: micro-api-destination
 spec:
   host: micro-api
+  #流量策略设置：负载均衡策略、连接池大小、局部异常检测等，在路由发生后作用于流量
   trafficPolicy:
     #限流策略
     connectionPool:
       tcp:
-        maxConnections: 1
+        maxConnections: 10
       http:
         http1MaxPendingRequests: 1
         maxRequestsPerConnection: 1
+    #设置目的地的负债均衡算法
+    loadBalancer:
+      simple: ROUND_ROBIN
+  #目的地指的是不同的子集(subset)或服务版本。通子集(subset),可以识别应用程序的不同版本，以实现流量在不同服务版本之间的切换
+  subsets:
+    - name: v1
+      labels:
+        version: v1
+    - name: v2
+      labels:
+        version: v2
+
 ---
 
 apiVersion: networking.istio.io/v1alpha3
